@@ -28,9 +28,40 @@
      - All 6 social media icons (FB, Twitter, LinkedIn, YouTube, Instagram, WhatsApp):
        w-4 h-4 → w-6 h-6
 
+  [2026-03-23] — Mobile Responsive Header
+  ─────────────────────────────────────────
+  5. MOBILE HEADER SPLIT into two separate layouts
+     - Mobile (md:hidden): stacked flex-col layout with phone + email vertically
+       - Icons: w-3.5 h-3.5, text: text-xs font-medium tracking-wide
+       - Social icons hidden on mobile to keep it clean
+     - Desktop (hidden md:flex): original layout with absolute-centered contact + right social icons
+
+  [2026-03-23] — Floating WhatsApp Button
+  ─────────────────────────────────────────
+  6. FLOATING WHATSAPP BUTTON added (fixed bottom-right)
+     - Position: fixed bottom-6 right-6 z-50
+     - Color: bg-[#25D366] (WhatsApp green)
+     - Size: w-14 h-14, icon: w-8 h-8
+     - Hover: scale-110 with smooth transition
+     - Opens chat: https://wa.me/918519991947
+
+  [2026-03-23] — NFC References Removed
+  ────────────────────────────────────────
+  7. REMOVED ALL NFC CONTENT as DVC cards use QR only
+     - QR Technology feature card: removed "without NFC support" from description
+       → Updated to: "Scannable QR codes that anyone can scan using their smartphone camera."
+     - FAQ: Replaced "How does the NFC technology work?" with "How does the DVC Digital Card work?"
+     - FAQ: Replaced "What if someone doesn't have an NFC-enabled phone?" with "How do I share my digital card?"
+
+  [2026-03-23] — WhatsApp Icon Removed from Header
+  ───────────────────────────────────────────────────
+  8. REMOVED WhatsApp icon from header social icons row
+     - Redundant due to floating WhatsApp button on screen
+     - Header now has 5 social icons: FB, Twitter, LinkedIn, YouTube, Instagram
+
   [Earlier session] — Hero Carousel
   ───────────────────────────────────
-  5. HERO CAROUSEL replaced with Center-Mode Carousel
+  9. HERO CAROUSEL replaced with Center-Mode Carousel
      - Replaced old crossfade + Ken Burns style with center-mode translateX carousel
      - Uses .center-frame for dynamic width measurement (getBoundingClientRect)
      - Added .center-frame overlay (white border, z-index 15)
@@ -111,8 +142,8 @@
       /* Keeps images from overflowing narrow screens */
       aspect-ratio: 713 / 1600;
       object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-radius: 18px;
+      box-shadow: none;
       opacity: 0.3;
       transform: scale(0.6);
       transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
@@ -123,7 +154,7 @@
       transform: scale(1);
     }
 
-    /* --- THE FRAME ALIGNMENT FIX --- */
+    /* --- THE CSS PHONE MOCKUP FRAME --- */
     .center-frame {
       position: absolute;
       top: 50%;
@@ -131,12 +162,51 @@
       transform: translate(-50%, -50%);
       height: 90%;
       max-width: 85vw;
-      /* CRITICAL: Forces the frame to shrink exactly in sync with the images! */
-      aspect-ratio: 713 / 1600;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      border-radius: 20px;
+      aspect-ratio: 714 / 1600;
+
+      /* Clean flat outline style */
+      border: 4px solid #000000;
+      border-radius: 22px;
+      box-shadow: none;
+
       z-index: 15;
       pointer-events: none;
+    }
+
+    /* No notch — remove ::before camera pill */
+    .center-frame::before {
+      display: none;
+    }
+
+    /* 3. Base styles for the physical buttons */
+    .center-frame .vol-up,
+    .center-frame .vol-down,
+    .center-frame .power-btn {
+      position: absolute;
+      background-color: #000000;
+      width: 4px;
+      border-radius: 3px;
+    }
+
+    /* Volume Up (Left edge) */
+    .center-frame .vol-up {
+      left: -8px;
+      top: 18%;
+      height: 40px;
+    }
+
+    /* Volume Down (Left edge) */
+    .center-frame .vol-down {
+      left: -8px;
+      top: 27%;
+      height: 40px;
+    }
+
+    /* Power Button (Right edge) */
+    .center-frame .power-btn {
+      right: -8px;
+      top: 22%;
+      height: 55px;
     }
 
     /* Bottom gradient vignette */
@@ -172,25 +242,24 @@
     <div class="bg-primary text-white font-medium py-2 px-4 sm:px-6 lg:px-8">
 
       <!-- MOBILE: compact centered contact row only (social icons hidden on mobile) -->
-      <div class="flex md:hidden items-center justify-center gap-5">
-        <a class="hover:text-secondary transition flex items-center gap-1.5" href="tel:+918519991947">
-          <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+      <div class="flex flex-col md:hidden items-center justify-center gap-1.5 py-1">
+        <a class="hover:text-secondary transition flex items-center gap-2" href="tel:+918519991947">
+          <svg class="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 24 24">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
           </svg>
-          <span class="text-xs font-medium">+91 85199 91947</span>
+          <span class="text-xs font-medium tracking-wide">+91 85199 91947</span>
         </a>
-        <span class="text-white/40">|</span>
-        <a class="hover:text-secondary transition flex items-center gap-1.5" href="mailto:cpsembeddedsolutions@gmail.com">
-          <svg class="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24">
+        <a class="hover:text-secondary transition flex items-center gap-2" href="mailto:cpsembeddedsolutions@gmail.com">
+          <svg class="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 24 24">
             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
-          <span class="text-xs font-medium truncate max-w-[160px]">cpsembeddedsolutions@gmail.com</span>
+          <span class="text-xs font-medium tracking-wide">cpsembeddedsolutions@gmail.com</span>
         </a>
       </div>
 
-      <!-- DESKTOP: contact centered + social icons right -->
-      <div class="hidden md:flex items-center justify-end relative">
-        <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-10 px-4">
+      <!-- DESKTOP: contact left + social icons right -->
+      <div class="hidden md:flex items-center justify-between">
+        <div class="flex items-center gap-10 px-4">
           <a class="hover:text-secondary transition flex items-center space-x-2" href="tel:+918519991947">
             <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
@@ -235,11 +304,6 @@
               d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
           </svg>
         </a>
-        <a class="hover:text-secondary transition" href="https://wa.me/918519991947" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.135.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-          </svg>
-        </a>
         </div><!-- end social icons -->
       </div><!-- end desktop wrapper -->
     </div>
@@ -262,7 +326,11 @@
     <section class="banner-wrapper" id="hero-carousel">
       <div id="hero-vignette"></div>
 
-      <div class="center-frame"></div>
+      <div class="center-frame">
+        <div class="vol-up"></div>
+        <div class="vol-down"></div>
+        <div class="power-btn"></div>
+      </div>
 
       <div class="slider-track" id="track">
         <img alt="DVC Carousel Image 2" class="slide" src="DVC_Templates/2.png" />
@@ -459,7 +527,7 @@
               </svg>
             </div>
             <h4 class="font-bold text-lg mb-2">QR Technology</h4>
-            <p class="text-gray-600">Scannable QR codes for older devices without NFC support.</p>
+            <p class="text-gray-600">Scannable QR codes that anyone can scan using their smartphone camera.</p>
           </div>
         </div>
       </div>
@@ -588,49 +656,388 @@
           <h2 class="text-3xl font-bold text-gray-800">Have Queries / Questions?</h2>
           <p class="text-gray-600 mt-2">Go through below Queries.</p>
         </div>
-        <div class="space-y-4">
+        <div class="space-y-2">
+
+          <!-- General FAQs -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">General FAQs</h3>
           <details class="group bg-gray-50 rounded-custom overflow-hidden">
-            <summary
-              class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
-              <span>How does the NFC technology work?</span>
-              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor"
-                viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-              </svg>
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>What is a digital visiting card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
             </summary>
-            <div class="p-4 text-gray-600">
-              The DVC card contains a near-field communication chip. When tapped against a smartphone, it triggers a
-              link to your digital profile automatically. No app is required.
-            </div>
+            <div class="p-4 text-gray-600">A digital visiting card is an online version of your business card that can be shared instantly via link, QR code, or messaging apps.</div>
           </details>
           <details class="group bg-gray-50 rounded-custom overflow-hidden">
-            <summary
-              class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
-              <span>What if someone doesn't have an NFC-enabled phone?</span>
-              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor"
-                viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-              </svg>
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>How does a digital visiting card work?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
             </summary>
-            <div class="p-4 text-gray-600">
-              Every DVC card also features a custom QR code on the back. They can simply open their camera app and scan
-              the code to view your profile.
-            </div>
+            <div class="p-4 text-gray-600">It allows users to store and share their contact details digitally with interactive features like call, message, and social links.</div>
           </details>
           <details class="group bg-gray-50 rounded-custom overflow-hidden">
-            <summary
-              class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
-              <span>Can I change my details after the card is printed?</span>
-              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor"
-                viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-              </svg>
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Who can use this platform?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
             </summary>
-            <div class="p-4 text-gray-600">
-              Yes! That is the core benefit. You can log into your dashboard and change your links, phone number, or job
-              title anytime, and the card updates instantly.
-            </div>
+            <div class="p-4 text-gray-600">Anyone including business owners, freelancers, sales professionals, and entrepreneurs.</div>
           </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is a digital visiting card better than a physical card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, it is eco-friendly, cost-effective, and easily shareable.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Do I need technical skills to create my card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">No, the platform is designed to be user-friendly.</div>
+          </details>
+
+          <!-- Features & Functionalities -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Features &amp; Functionalities</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>What contact options are available on the card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Call, SMS, WhatsApp, email, and direct links.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can users directly call me from the card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, a single tap allows instant calling.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is WhatsApp integration available?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, users can contact you instantly via WhatsApp.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I add multiple contact numbers?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can add multiple numbers and emails.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Does the card support location sharing?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, users can access your location via maps.</div>
+          </details>
+
+          <!-- Business & Marketing -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Business &amp; Marketing</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>How does lead generation work?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Visitors can submit inquiries through forms on your card.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I collect customer data?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, lead forms allow data collection.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I promote my business using this card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, it acts as a mini-website for your business.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Does it support referral marketing?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, users can earn commissions through referrals.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>What is the commission percentage?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">You can earn up to 20% referral commission.</div>
+          </details>
+
+          <!-- Customization & Design -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Customization &amp; Design</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Are there ready-made templates available?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, multiple templates are available.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I customize my card design?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, full customization is supported.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Are themes available?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can choose from various themes.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I add my company logo?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, logo upload is supported.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I change colors and fonts?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can personalize them.</div>
+          </details>
+
+          <!-- Media & Content -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Media &amp; Content</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I add an image gallery?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can showcase multiple images.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I include videos?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, video links can be added.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I add a website link?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can link your website.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I write about my business?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, there is an "About Us" section.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I share social media links?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, all major social platforms are supported.</div>
+          </details>
+
+          <!-- Sharing & Accessibility -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Sharing &amp; Accessibility</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>How can I share my card?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Via QR code, link, WhatsApp, email, or social media.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I use a QR code?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, each card comes with a unique QR code.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is it mobile-friendly?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, fully optimized for mobile devices.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Do recipients need an app?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">No, it works via browser.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I update my details anytime?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, updates are instant.</div>
+          </details>
+
+          <!-- Analytics & Dashboard -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Analytics &amp; Dashboard</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is there a user dashboard?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you get a complete dashboard.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>What statistics are available?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Views, clicks, leads, and referral earnings.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I track my leads?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, all leads are tracked.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I monitor performance?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, analytics help you measure performance.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Are reports downloadable?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, reports can be exported.</div>
+          </details>
+
+          <!-- Referral & Earnings -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Referral &amp; Earnings</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>How does the referral system work?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Share your referral link and earn commissions.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>When do I get paid?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Payments are processed as per the platform policy.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is there a limit on referrals?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">No, unlimited referrals allowed.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I track my earnings?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, via dashboard.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is the referral system transparent?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, all earnings are clearly displayed.</div>
+          </details>
+
+          <!-- Security & Support -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Security &amp; Support</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is my data secure?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, strong security measures are in place.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Is there customer support available?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, support is available for assistance.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I recover my account if lost?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, through email/phone verification.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Are there any hidden charges?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">No, pricing is transparent.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Do you provide updates?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, regular updates and new features are added.</div>
+          </details>
+
+          <!-- Technical & Miscellaneous -->
+          <h3 class="text-base font-bold text-primary uppercase tracking-wide mt-8 mb-3">Technical &amp; Miscellaneous</h3>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Does it work on all devices?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, compatible with mobile, tablet, and desktop.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Do I need hosting?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">No, everything is managed by the platform.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can I use it internationally?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, it works globally.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>Can multiple cards be created?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Yes, you can create multiple cards.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-custom overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition">
+              <span>How do I get started?</span>
+              <svg class="h-5 w-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+            </summary>
+            <div class="p-4 text-gray-600">Simply sign up, choose a plan, pay card activation charges and customize your card.</div>
+          </details>
+
         </div>
       </div>
     </section>
