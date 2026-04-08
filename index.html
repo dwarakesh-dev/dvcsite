@@ -4,165 +4,145 @@
   CHANGE LOG — index.html
 ================================================================================
 
-  [2026-03-23] — Header Top Bar Updates
-  ───────────────────────────────────────
-  1. CONTACT INFO ADDED (Left/Center of top bar)
-     - Added phone number: +91 85199 91947 (links to tel:+918519991947)
-     - Added email: cpsembeddedsolutions@gmail.com (links to mailto:)
-     - Both have matching SVG icons and hover:text-secondary effect
+  [2026-03-23] — Change #1: Contact Info Added to Header Top Bar
+  ───────────────────────────────────────────────────────────────
+  - Added phone number: +91 85199 91947 (links to tel:+918519991947)
+  - Added email: cpsembeddedsolutions@gmail.com (links to mailto:)
+  - Both have matching SVG icons and hover:text-secondary effect
+  - Top bar layout changed to centered; social icons remain right-aligned
+  - Phone & email icons enlarged: w-3 h-3 → w-6 h-6
+  - Phone & email text: default xs → text-base font-medium
+  - All social media icons enlarged: w-4 h-4 → w-6 h-6
 
-  2. WHATSAPP ICON ADDED (Social icons group)
-     - Added WhatsApp icon after Instagram in the social icons row
-     - Links to https://wa.me/918519991947 (opens WhatsApp chat directly)
-     - Opens in new tab with rel="noopener noreferrer"
+  [2026-03-23] — Change #2: WhatsApp Icon Added to Header Social Icons
+  ──────────────────────────────────────────────────────────────────────
+  - Added WhatsApp icon after Instagram in the social icons row
+  - Links to https://wa.me/918519991947
 
-  3. LAYOUT — Top bar changed to centered layout
-     - Contact (phone + email) absolutely centered using left-1/2 -translate-x-1/2
-     - Social icons remain right-aligned (justify-end)
-     - Gap between phone and email: gap-10 with px-4 padding
-     - Social icons group: gap-4, px-[15px] inner padding, mx-5 outer margin
+  [2026-03-23] — Change #3: Mobile Responsive Header
+  ─────────────────────────────────────────────────────
+  - MOBILE (md:hidden): stacked flex-col layout with phone + email vertically
+    Icons: w-3.5 h-3.5, text: text-xs font-medium tracking-wide
+    Social icons hidden on mobile to keep it clean
+  - DESKTOP (hidden md:flex): original layout — absolute-centered contact + right social icons
 
-  4. ICON & TEXT SIZES INCREASED
-     - Phone & email icons: w-3 h-3 → w-6 h-6
-     - Phone & email text: default xs → text-base font-medium
-     - All 6 social media icons (FB, Twitter, LinkedIn, YouTube, Instagram, WhatsApp):
-       w-4 h-4 → w-6 h-6
+  [2026-03-23] — Change #4: Floating WhatsApp Button Added
+  ──────────────────────────────────────────────────────────
+  - Position: fixed bottom-6 right-6 z-50
+  - Color: bg-[#25D366] (WhatsApp green), size: w-14 h-14, icon: w-8 h-8
+  - Hover: scale-110 with smooth transition
+  - Opens chat: https://wa.me/918519991947
 
-  [2026-03-23] — Mobile Responsive Header
-  ─────────────────────────────────────────
-  5. MOBILE HEADER SPLIT into two separate layouts
-     - Mobile (md:hidden): stacked flex-col layout with phone + email vertically
-       - Icons: w-3.5 h-3.5, text: text-xs font-medium tracking-wide
-       - Social icons hidden on mobile to keep it clean
-     - Desktop (hidden md:flex): original layout with absolute-centered contact + right social icons
+  [2026-03-23] — Change #5: NFC References Removed
+  ─────────────────────────────────────────────────
+  - QR Technology feature card: removed "without NFC support" from description
+    → Updated to: "Scannable QR codes that anyone can scan using their smartphone camera."
+  - FAQ: Replaced "How does the NFC technology work?" with "How does the DVC Digital Card work?"
+  - FAQ: Replaced "What if someone doesn't have an NFC-enabled phone?" with "How do I share my digital card?"
 
-  [2026-03-23] — Floating WhatsApp Button
-  ─────────────────────────────────────────
-  6. FLOATING WHATSAPP BUTTON added (fixed bottom-right)
-     - Position: fixed bottom-6 right-6 z-50
-     - Color: bg-[#25D366] (WhatsApp green)
-     - Size: w-14 h-14, icon: w-8 h-8
-     - Hover: scale-110 with smooth transition
-     - Opens chat: https://wa.me/918519991947
+  [2026-03-23] — Change #6: WhatsApp Icon Removed from Header
+  ────────────────────────────────────────────────────────────
+  - Removed WhatsApp icon from header social icons row (redundant with floating button)
+  - Header now has 5 social icons: FB, Twitter, LinkedIn, YouTube, Instagram
 
-  [2026-03-23] — NFC References Removed
-  ────────────────────────────────────────
-  7. REMOVED ALL NFC CONTENT as DVC cards use QR only
-     - QR Technology feature card: removed "without NFC support" from description
-       → Updated to: "Scannable QR codes that anyone can scan using their smartphone camera."
-     - FAQ: Replaced "How does the NFC technology work?" with "How does the DVC Digital Card work?"
-     - FAQ: Replaced "What if someone doesn't have an NFC-enabled phone?" with "How do I share my digital card?"
+  [Earlier session] — Change #7: Hero Carousel Replaced
+  ───────────────────────────────────────────────────────
+  - Replaced old crossfade + Ken Burns style with center-mode translateX carousel
+  - Uses .center-frame for dynamic width measurement (getBoundingClientRect)
+  - Added .center-frame overlay (white border, z-index 15)
+  - Added #hero-vignette gradient overlay (bottom fade, z-index 20)
+  - cycleTime: 4800ms, touch swipe support included
+  - 11 slides: DVC_Templates/2.png through DVC_Templates/12.png
 
-  [2026-03-23] — WhatsApp Icon Removed from Header
-  ───────────────────────────────────────────────────
-  8. REMOVED WhatsApp icon from header social icons row
-     - Redundant due to floating WhatsApp button on screen
-     - Header now has 5 social icons: FB, Twitter, LinkedIn, YouTube, Instagram
+  [Earlier session] — Change #8: Logo Updated
+  ─────────────────────────────────────────────
+  - Logo changed from base64 embedded PNG to src="dvc_logo.png" (header + footer)
 
-  [Earlier session] — Hero Carousel
-  ───────────────────────────────────
-  9. HERO CAROUSEL replaced with Center-Mode Carousel
-     - Replaced old crossfade + Ken Burns style with center-mode translateX carousel
-     - Uses .center-frame for dynamic width measurement (getBoundingClientRect)
-     - Added .center-frame overlay (white border, z-index 15)
-     - Added #hero-vignette gradient overlay (bottom fade, z-index 20)
-     - cycleTime: 4800ms, touch swipe support included
-     - 11 slides: DVC_Templates/2.png through DVC_Templates/12.png
+  [2026-03-24] — Change #9: Hero Banner Animated Gradient Background
+  ──────────────────────────────────────────────────────────────────
+  - linear-gradient(-45deg, #0f172a, #1e3a8a, #111827, #081021)
+  - background-size: 400% 400%, animation: slowGradient 15s ease infinite
+  - Replaced solid #111827 background color
 
-  [Earlier session] — Logo
-  ─────────────────────────
-  10. LOGO changed from base64 embedded PNG to src="dvc_logo.png" (header + footer)
+  [2026-03-24] — Change #10: Phone Mockup Frame Added to Hero
+  ────────────────────────────────────────────────────────────
+  - .center-frame: CSS-only phone mockup (no image), absolute centered overlay
+  - border: 6px solid #888888, border-radius: 22px
+  - Physical buttons: vol-up, vol-down (left side), power (right side) — all #888888
+  - Notch: removed (::before display: none)
+  - Banner height: Mobile → calc(100dvh - 140px), Desktop (≥768px) → 80vh
 
-  [2026-03-24] — FAQ Section Overhaul
-  ─────────────────────────────────────
-  11. FAQ expanded from 3 items to 50 Q&As across 10 categories
-      - Categories: General, QR & Digital Card, Features, Sharing & Compatibility,
-        Customization, Security & Privacy, Plans & Pricing, Orders & Delivery,
-        Technical Support, Business & Enterprise
-      - Each Q&A uses <details> accordion with group-open:bg-primary active state
-      - Category headings: text-base font-bold text-primary uppercase tracking-wide
+  [2026-03-24] — Change #11: FAQ Expanded to 50 Q&As
+  ─────────────────────────────────────────────────────
+  - FAQ expanded from 3 items to 50 Q&As across 10 categories
+  - Categories: General, QR & Digital Card, Features, Sharing & Compatibility,
+    Customization, Security & Privacy, Plans & Pricing, Orders & Delivery,
+    Technical Support, Business & Enterprise
+  - Each Q&A uses <details> accordion with group-open:bg-primary active state
 
-  [2026-03-24] — Hero Banner Redesign
-  ─────────────────────────────────────
-  12. ANIMATED GRADIENT BACKGROUND added to hero banner
-      - linear-gradient(-45deg, #0f172a, #1e3a8a, #111827, #081021)
-      - background-size: 400% 400%, animation: slowGradient 15s ease infinite
-      - Replaced solid #111827 background color
+  [2026-03-24] — Change #12: Color Theme Changed
+  ────────────────────────────────────────────────
+  - PRIMARY COLOR: #0000FF → #1E88E5 (Material Blue)
+  - SECONDARY COLOR: #FFFF00 → #FFFFFF (White)
+  - Yellow buttons removed; replaced with white/blue style:
+    "Register Now" hero CTA: bg-white text-primary hover:bg-blue-50
+    "Subscribe" newsletter button: bg-white text-primary hover:bg-blue-50
 
-  13. PHONE MOCKUP FRAME added (CSS-only, no image)
-      - .center-frame: absolute centered overlay over active slide
-      - Style: flat grey outline, border: 6px solid #888888, border-radius: 22px
-      - Physical buttons: vol-up (left -8px, top 18%, h:40px), vol-down (left -8px,
-        top 27%, h:40px), power (right -8px, top 22%, h:55px) — all #888888
-      - Notch removed (::before display: none)
+  [2026-03-24] — Change #13: WhatsApp Number Updated
+  ────────────────────────────────────────────────────
+  - Floating WhatsApp button number changed:
+    Old: wa.me/918519991947 → New: wa.me/918686878174
 
-  14. BANNER HEIGHT adjusted
-      - Mobile: height: calc(100dvh - 140px)
-      - Desktop (≥768px): height: 80vh
+  [2026-03-24] — Change #14: Font Changed to Open Sans
+  ──────────────────────────────────────────────────────
+  - Google Fonts link: Open Sans weights 300, 400, 600, 700 loaded
+  - Tailwind fontFamily.sans updated to ['Open Sans', 'sans-serif']
+  - Global CSS: body { font-weight: 300 } (light body text)
+  - Global CSS: h1–h6 { font-weight: 600 } (semi-bold headings)
 
-  [2026-03-24] — Color Theme Change
-  ───────────────────────────────────
-  15. PRIMARY COLOR changed: #0000FF → #1E88E5 (Material Blue)
-  16. SECONDARY COLOR changed: #FFFF00 → #FFFFFF (White)
-  17. BUTTONS updated — removed yellow style, now white/blue:
-      - "Register Now" hero CTA: bg-white text-primary hover:bg-blue-50
-      - "Subscribe" newsletter button: bg-white text-primary hover:bg-blue-50
+  [2026-03-24] — Change #15: ResizeObserver Zoom Fix in Carousel
+  ───────────────────────────────────────────────────────────────
+  - Replaced window.addEventListener('resize', ...) with ResizeObserver
+  - ResizeObserver fires on both window resize AND browser zoom changes
+  - Ensures slide/frame pixel positions recalculate correctly on zoom in/out
 
-  [2026-03-24] — WhatsApp Number Updated
-  ─────────────────────────────────────────
-  18. FLOATING WHATSAPP BUTTON number changed:
-      - Old: wa.me/918519991947
-      - New: wa.me/918686878174
+  [2026-03-25] — Change #16: Q&A Nav Link Added to Desktop Nav Bar
+  ──────────────────────────────────────────────────────────────────
+  - New nav link "Q&A" added between "Why DVC?" and "Contact"
+  - Links to #faq anchor; id="faq" added to FAQ section wrapper
 
-  [2026-03-24] — Font Change
-  ────────────────────────────
-  19. FONT changed from Inter to Open Sans throughout
-      - Google Fonts link: weights 300, 400, 600, 700 loaded
-      - Tailwind fontFamily.sans updated to ['Open Sans', 'sans-serif']
-      - Global CSS: body { font-weight: 300 } (light body text)
-      - Global CSS: h1–h6 { font-weight: 600 } (semi-bold headings)
+  [2026-03-25] — Change #17: Twitter Icon Changed to X Logo
+  ───────────────────────────────────────────────────────────
+  - Replaced Twitter bird SVG path with the official X (new branding) logo path
 
-  [2026-04-01] — FAQ Multi-Language Support
-  ──────────────────────────────────────────
-  24. FAQ section now supports 4 languages with switcher
-      - Languages: Telugu (default), English, Hindi, Tamil (in that order)
-      - Language selector buttons with native script labels:
-        తెలుగు, English, हिंदी, தமிழ்
-      - Active language button: bg-primary text-white
-      - Inactive buttons: border-gray-300 with hover effect
-      - 4 language columns side-by-side: Telugu, English, Hindi, Tamil
-      - Each column: 5 visible Q&As + expandable hidden Q&As
-      - Read More / collapse toggle via toggleFAQMore(lang)
+  [2026-04-01] — Change #18: FAQ Replaced with New Q&A Content (new_q&a.txt)
+  ────────────────────────────────────────────────────────────────────────────
+  - Old 50-item FAQ fully replaced with 31 new Q&As from new_q&a.txt
+  - Removed: "How does lead generation work?" and "Can I track my leads?" (per instruction)
+  - Removed duplicate "Can I download my reports?" entry
+  - Typos fixed: SECONDERY→SECONDARY, COMMISSOIN→COMMISSION,
+    SUCCESFULL→SUCCESSFUL, DASHBOARDB→DASHBOARD, USE DASHBOARD→USER DASHBOARD,
+    HOW TO I→HOW DO I, RECEPIENTS→RECIPIENTS
+  - 9 categories: Contact & Communication, Business & Marketing,
+    Referrals & Earnings, Templates & Customization, Media & Content,
+    Sharing & Compatibility, Dashboard & Statistics, Account & Security,
+    Support & General
 
-  [2026-04-01] — FAQ Section Replaced (new_q&a.txt)
-  ──────────────────────────────────────────────────
-  23. FAQ replaced with 31 new Q&As from new_q&a.txt
-      - Removed: "How does lead generation work?" (per instruction)
-      - Removed: "Can I track my leads?" (per instruction)
-      - Removed duplicate "Can I download my reports?" entry
-      - Typos fixed: SECONDERY→SECONDARY, COMMISSOIN→COMMISSION,
-        SUCCESFULL→SUCCESSFUL, DASHBOARDB→DASHBOARD, USE DASHBOARD→USER DASHBOARD,
-        HOW TO I→HOW DO I, RECEPIENTS→RECIPIENTS
-      - 9 categories: Contact & Communication, Business & Marketing,
-        Referrals & Earnings, Templates & Customization, Media & Content,
-        Sharing & Compatibility, Dashboard & Statistics, Account & Security,
-        Support & General
-      - "How does the referral system work?" marked as pending (placeholder)
-
-  [2026-03-25] — Header Nav & Social Icons
-  ──────────────────────────────────────────
-  21. Q&A SHORTCUT added to desktop nav bar
-      - New link "Q&A" added between "Why DVC?" and "Contact"
-      - Links to #faq anchor; added id="faq" to FAQ section
-  22. TWITTER ICON changed to X (new branding)
-      - Replaced Twitter bird SVG path with official X logo path
-
-  [2026-03-24] — Carousel Zoom Fix
-  ──────────────────────────────────
-  20. RESIZE OBSERVER added to carousel JS
-      - Replaced window.addEventListener('resize', ...) with ResizeObserver
-      - ResizeObserver fires on both window resize AND browser zoom changes
-      - Ensures slide/frame pixel positions recalculate correctly on zoom in/out
+  [2026-04-01] — Change #19: FAQ Redesigned — 4-Language Side-by-Side Layout
+  ────────────────────────────────────────────────────────────────────────────
+  - Old tab-switcher FAQ replaced with 4 side-by-side column grid layout
+  - Grid: grid-cols-1 sm:grid-cols-2 xl:grid-cols-4, gap-6
+  - Language order: Telugu (తెలుగు), English, Hindi (हिंदी), Tamil (தமிழ்)
+  - Each column: 5 visible Q&As + expandable hidden Q&As (id="faq-extras-{lang}")
+  - Read More / Read Less toggle button at bottom of each column
+  - Button labels in native script per language:
+    Telugu: మరిన్ని చదవండి / తక్కువ చూపించు
+    English: Read More / Read Less
+    Hindi: और पढ़ें / कम करें
+    Tamil: மேலும் படிக்க / குறைவாக காட்டு
+  - JS function: toggleFAQMore(lang) — uses getElementById('faq-extras-'+lang)
+    for precise per-column targeting (prevents all columns from expanding together)
+  - Old switchFAQLanguage() function removed; old orphaned accordion HTML removed
 
 ================================================================================
 -->
