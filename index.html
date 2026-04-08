@@ -516,24 +516,20 @@
     </script>
 
     <script>
-      // FAQ Read More Toggler
-      function toggleFAQMore(btn) {
-        const lang = btn.dataset.lang;
-        const extra = btn.parentElement.querySelector('.faq-extras');
-        const isHidden = extra.classList.contains('hidden');
-        const labels = {
-          telugu:  { more: '\u25bc \u0c2e\u0c30\u0c3f\u0c28\u0c4d\u0c28\u0c3f \u0c1a\u0c26\u0c35\u0c02\u0c21\u0c3f', less: '\u25b2 \u0c24\u0c15\u0c4d\u0c15\u0c41\u0c35 \u0c1a\u0c42\u0c2a\u0c3f\u0c02\u0c1a\u0c41' },
-          english: { more: '\u25bc Read More', less: '\u25b2 Read Less' },
-          hindi:   { more: '\u25bc \u0914\u0930 \u092a\u095d\u0947\u0902', less: '\u25b2 \u0915\u092e \u0915\u0930\u0947\u0902' },
-          tamil:   { more: '\u25bc \u0bae\u0bc7\u0bb2\u0bc1\u0bae\u0bcd \u0baa\u0b9f\u0bbf\u0b95\u0bcd\u0b95', less: '\u25b2 \u0b95\u0bc1\u0bb1\u0bc8\u0bb5\u0bbe\u0b95 \u0b95\u0bbe\u0b9f\u0bcd\u0b9f\u0bc1' }
-        };
-        if (isHidden) {
-          extra.classList.remove('hidden');
-          btn.textContent = labels[lang].less;
-        } else {
-          extra.classList.add('hidden');
-          btn.textContent = labels[lang].more;
-        }
+      // FAQ Language Tab Switcher
+      function switchTab(evt, tabId) {
+        document.querySelectorAll('.tab-content').forEach(function(c) {
+          c.classList.add('hidden');
+          c.classList.remove('block');
+        });
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+          b.classList.remove('bg-primary', 'text-white', 'shadow-md');
+          b.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        document.getElementById(tabId).classList.remove('hidden');
+        document.getElementById(tabId).classList.add('block');
+        evt.currentTarget.classList.remove('bg-gray-200', 'text-gray-700');
+        evt.currentTarget.classList.add('bg-primary', 'text-white', 'shadow-md');
       }
     </script>
 
@@ -770,283 +766,243 @@
     </section>
     <section class="py-20 px-4 bg-white" data-purpose="faq-accordions" id="faq">
       <div class="max-w-screen-xl mx-auto">
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
           <h2 class="text-3xl font-bold text-gray-800">Have Queries / Questions?</h2>
-          <p class="text-gray-600 mt-2">Browse answers in your preferred language.</p>
+          <p class="text-gray-600 mt-2">Choose your preferred language below.</p>
         </div>
-        <!-- 4-column side-by-side language layout -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        
-<!-- ══ COLUMN 1: Telugu ══ -->
-          <div class="border border-gray-200 rounded-xl overflow-hidden flex flex-col">
-            <div class="bg-primary text-white text-center py-3 font-bold text-lg tracking-wide">తెలుగు</div>
-            <div class="p-4 flex-1 space-y-2">
-              <!-- Visible items -->
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">కార్డ్‌పై ఏ కాంటాక్ట్ ఆప్షన్లు అందుబాటులో ఉన్నాయి?</p>
-                <p class="text-xs text-gray-600 mt-1">కాల్, SMS, WhatsApp, ఇమెయిల్, అడ్రస్ మరియు లొకేషన్.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">నేరుగా WhatsApp ఇంటిగ్రేషన్ ఉందా?</p>
-                <p class="text-xs text-gray-600 mt-1">అవును, ఒక్క tap తో వినియోగదారులు మీకు WhatsApp ద్వారా సంప్రదించవచ్చు.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">నేను బహుళ కాంటాక్ట్ నంబర్లు వాడవచ్చా?</p>
-                <p class="text-xs text-gray-600 mt-1">అవును, ప్రాథమిక మరియు ద్వితీయ నంబర్లు వాడవచ్చు.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">నా వ్యాపారాన్ని ప్రమోట్ చేయవచ్చా?</p>
-                <p class="text-xs text-gray-600 mt-1">అవును, ఇది వ్యాపారాలకు లేదా వ్యక్తులకు చిన్న కాంటాక్ట్ షేరింగ్ ప్లాట్‌ఫారమ్ లాగా పని చేస్తుంది.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">రెఫరల్ కమిషన్ ఎంత?</p>
-                <p class="text-xs text-gray-600 mt-1">కొత్త సబ్‌స్క్రిప్షన్ వ్యయంలో 20% వరకు కమిషన్ సంపాదించవచ్చు.</p>
-              </div>
-              <!-- Hidden items -->
-              <div class="faq-extras hidden space-y-2">
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">రెడీమేడ్ టెంప్లేట్లు అందుబాటులో ఉన్నాయా?</p>
-                  <p class="text-xs text-gray-600 mt-1">అవును, సబ్‌స్క్రిప్షన్కు అనుగుణంగా టెంప్లేట్లు అందుబాటులో ఉన్నాయి.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">నా కార్డ్ డిజైన్ కస్టమైజ్ చేయవచ్చా?</p>
-                  <p class="text-xs text-gray-600 mt-1">అవును, సబ్‌స్క్రిప్షన్ ఆధారంగా కస్టమైజేషన్ సాధ్యం.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">ఇమేజ్ గ్యాలరీ జోడించవచ్చా?</p>
-                  <p class="text-xs text-gray-600 mt-1">అవును, .PNG, .JPG, .JPEG ఫార్మాట్లలో ఇమేజ్‌లు జోడించవచ్చు.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">నా కార్డ్ ఎలా షేర్ చేయాలి?</p>
-                  <p class="text-xs text-gray-600 mt-1">కార్డ్ పై Share బటన్ నొక్కి SMS, WhatsApp, Telegram ద్వారా షేర్ చేయవచ్చు.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">యూజర్ డ్యాష్‌బోర్డ్ ఉందా?</p>
-                  <p class="text-xs text-gray-600 mt-1">అవును, సబ్‌స్క్రిప్షన్ ఆధారంగా పూర్తి డ్యాష్‌బోర్డ్ అందుబాటులో ఉంది.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">నా వివరాలు ఎప్పుడైనా అప్‌డేట్ చేయవచ్చా?</p>
-                  <p class="text-xs text-gray-600 mt-1">అవును, మీ DVC వివరాలు ఎప్పుడైనా వెంటనే సవరించవచ్చు.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">దాచిన చార్జీలు ఉన్నాయా?</p>
-                  <p class="text-xs text-gray-600 mt-1">లేదు, ధర పూర్తిగా పారదర్శకంగా ఉంటుంది.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">డిజిటల్ విజిటింగ్ కార్డ్‌తో ఎలా ప్రారంభించాలి?</p>
-                  <p class="text-xs text-gray-600 mt-1">సైన్అప్ ఫారమ్ పూరించండి, సేల్స్ టీమ్ మిమ్మల్ని సంప్రదిస్తుంది, ఆ తర్వాత చెల్లింపు చేసి మీ కార్డ్ యాక్టివేట్ చేసుకోండి.</p>
-                </div>
-              </div>
-            </div>
-            <button onclick="toggleFAQMore(this)" 
-              class="faq-readmore-btn w-full py-2 text-sm font-semibold text-primary border-t border-gray-200 hover:bg-gray-50 transition" 
-              data-lang="telugu">
-              ▼ మరిన్ని చదవండి
-            </button>
-          </div>
 
-          <!-- ══ COLUMN 2: English ══ -->
-          <div class="border border-gray-200 rounded-xl overflow-hidden flex flex-col">
-            <div class="bg-primary text-white text-center py-3 font-bold text-lg tracking-wide">English</div>
-            <div class="p-4 flex-1 space-y-2">
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">Which contact options are available on the card?</p>
-                <p class="text-xs text-gray-600 mt-1">Call, SMS, WhatsApp, Email, Address and Location.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">Is direct WhatsApp integration available?</p>
-                <p class="text-xs text-gray-600 mt-1">Yes, users can instantly contact you via WhatsApp with a single tap.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">Can I use multiple contact numbers?</p>
-                <p class="text-xs text-gray-600 mt-1">Yes, you can use a primary and a secondary (alternate) contact number.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">Can I promote my business using this card?</p>
-                <p class="text-xs text-gray-600 mt-1">Yes, it acts like a mini contact sharing platform for businesses or individuals.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">What is the referral commission amount?</p>
-                <p class="text-xs text-gray-600 mt-1">You can earn up to 20% commission of the new subscription cost after the new user's successful registration.</p>
-              </div>
-              <!-- Hidden items -->
-              <div class="faq-extras hidden space-y-2">
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Are there ready-made templates available?</p>
-                  <p class="text-xs text-gray-600 mt-1">Yes, different templates are available for different subscriptions.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Can I customize my card design?</p>
-                  <p class="text-xs text-gray-600 mt-1">Yes, card customization is possible based on your subscription.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Can I add an image gallery?</p>
-                  <p class="text-xs text-gray-600 mt-1">Yes, you can add images. Supported formats: .PNG, .JPG, .JPEG.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">How can I share my card?</p>
-                  <p class="text-xs text-gray-600 mt-1">Tap the Share button on your card and choose from SMS, WhatsApp, Telegram, and more.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Is there a user dashboard?</p>
-                  <p class="text-xs text-gray-600 mt-1">Yes, a complete user dashboard is available based on your subscription.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Can I update my details at any time?</p>
-                  <p class="text-xs text-gray-600 mt-1">Yes, you can edit and update your DVC details instantly at any time.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">Are there any hidden charges?</p>
-                  <p class="text-xs text-gray-600 mt-1">No hidden charges — the pricing is transparent.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">How do I get started?</p>
-                  <p class="text-xs text-gray-600 mt-1">Fill the signup form, our sales team will reply, then log in, pay for your plan, and your card is activated.</p>
-                </div>
-              </div>
-            </div>
-            <button onclick="toggleFAQMore(this)" 
-              class="faq-readmore-btn w-full py-2 text-sm font-semibold text-primary border-t border-gray-200 hover:bg-gray-50 transition" 
-              data-lang="english">
-              ▼ Read More
-            </button>
-          </div>
+        <!-- Language Tab Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <button onclick="switchTab(event, 'faq-telugu')" class="tab-btn px-6 py-2 rounded-full font-bold bg-primary text-white shadow-md transition">తెలుగు</button>
+          <button onclick="switchTab(event, 'faq-english')" class="tab-btn px-6 py-2 rounded-full font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition">English</button>
+          <button onclick="switchTab(event, 'faq-hindi')" class="tab-btn px-6 py-2 rounded-full font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition">हिंदी</button>
+          <button onclick="switchTab(event, 'faq-tamil')" class="tab-btn px-6 py-2 rounded-full font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition">தமிழ்</button>
+        </div>
 
-          <!-- ══ COLUMN 3: Hindi ══ -->
-          <div class="border border-gray-200 rounded-xl overflow-hidden flex flex-col">
-            <div class="bg-primary text-white text-center py-3 font-bold text-lg tracking-wide">हिंदी</div>
-            <div class="p-4 flex-1 space-y-2">
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">कार्ड पर कौन से संपर्क विकल्प उपलब्ध हैं?</p>
-                <p class="text-xs text-gray-600 mt-1">कॉल, SMS, WhatsApp, ईमेल, पता और लोकेशन।</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">क्या सीधा WhatsApp इंटीग्रेशन उपलब्ध है?</p>
-                <p class="text-xs text-gray-600 mt-1">हाँ, उपयोगकर्ता एक tap से WhatsApp पर आपसे संपर्क कर सकते हैं।</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">क्या मैं कई कॉन्टैक्ट नंबर उपयोग कर सकता हूँ?</p>
-                <p class="text-xs text-gray-600 mt-1">हाँ, एक प्राथमिक और एक वैकल्पिक नंबर उपयोग किया जा सकता है।</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">क्या मैं इस कार्ड से अपना व्यवसाय प्रमोट कर सकता हूँ?</p>
-                <p class="text-xs text-gray-600 mt-1">हाँ, यह व्यवसायों या व्यक्तियों के लिए एक मिनी कॉन्टैक्ट शेयरिंग प्लेटफॉर्म की तरह काम करता है।</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">रेफरल कमीशन राशि क्या है?</p>
-                <p class="text-xs text-gray-600 mt-1">नए सब्सक्रिप्शन की लागत का 20% तक कमीशन कमाया जा सकता है।</p>
-              </div>
-              <!-- Hidden items -->
-              <div class="faq-extras hidden space-y-2">
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या रेडीमेड टेम्पलेट उपलब्ध हैं?</p>
-                  <p class="text-xs text-gray-600 mt-1">हाँ, विभिन्न सब्सक्रिप्शन के लिए अलग-अलग टेम्पलेट उपलब्ध हैं।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या मैं कार्ड डिज़ाइन कस्टमाइज़ कर सकता हूँ?</p>
-                  <p class="text-xs text-gray-600 mt-1">हाँ, सब्सक्रिप्शन के आधार पर कार्ड कस्टमाइज़ेशन संभव है।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या मैं इमेज गैलरी जोड़ सकता हूँ?</p>
-                  <p class="text-xs text-gray-600 mt-1">हाँ, .PNG, .JPG, .JPEG फॉर्मेट में इमेज जोड़े जा सकते हैं।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">मैं अपना कार्ड कैसे शेयर करूँ?</p>
-                  <p class="text-xs text-gray-600 mt-1">कार्ड पर Share बटन दबाएँ और SMS, WhatsApp, Telegram आदि विकल्प चुनें।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या यूज़र डैशबोर्ड उपलब्ध है?</p>
-                  <p class="text-xs text-gray-600 mt-1">हाँ, सब्सक्रिप्शन के आधार पर पूर्ण डैशबोर्ड उपलब्ध है।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या मैं अपनी जानकारी कभी भी अपडेट कर सकता हूँ?</p>
-                  <p class="text-xs text-gray-600 mt-1">हाँ, आप कभी भी तुरंत अपना DVC विवरण संपादित कर सकते हैं।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">क्या कोई छुपे हुए शुल्क हैं?</p>
-                  <p class="text-xs text-gray-600 mt-1">नहीं, मूल्य निर्धारण पूरी तरह पारदर्शी है।</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">डिजिटल विज़िटिंग कार्ड से कैसे शुरू करें?</p>
-                  <p class="text-xs text-gray-600 mt-1">साइनअप फॉर्म भरें, हमारी टीम संपर्क करेगी, फिर लॉगिन करें, भुगतान करें और कार्ड सक्रिय हो जाएगा।</p>
-                </div>
-              </div>
-            </div>
-            <button onclick="toggleFAQMore(this)" 
-              class="faq-readmore-btn w-full py-2 text-sm font-semibold text-primary border-t border-gray-200 hover:bg-gray-50 transition" 
-              data-lang="hindi">
-              ▼ और पढ़ें
-            </button>
-          </div>
+        <!-- ══ TAB: Telugu ══ -->
+        <div id="faq-telugu" class="tab-content block space-y-3 max-w-3xl mx-auto">
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>కార్డ్‌పై ఏ కాంటాక్ట్ ఆప్షన్లు అందుబాటులో ఉన్నాయి?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">కాల్, SMS, WhatsApp, ఇమెయిల్, అడ్రస్ మరియు లొకేషన్.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నేరుగా WhatsApp ఇంటిగ్రేషన్ ఉందా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, ఒక్క tap తో వినియోగదారులు మీకు WhatsApp ద్వారా సంప్రదించవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నేను బహుళ కాంటాక్ట్ నంబర్లు వాడవచ్చా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, ప్రాథమిక మరియు ద్వితీయ నంబర్లు వాడవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నా వ్యాపారాన్ని ప్రమోట్ చేయవచ్చా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, ఇది వ్యాపారాలకు లేదా వ్యక్తులకు చిన్న కాంటాక్ట్ షేరింగ్ ప్లాట్‌ఫారమ్ లాగా పని చేస్తుంది.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>రెఫరల్ కమిషన్ ఎంత?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">కొత్త సబ్‌స్క్రిప్షన్ వ్యయంలో 20% వరకు కమిషన్ సంపాదించవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>రెడీమేడ్ టెంప్లేట్లు అందుబాటులో ఉన్నాయా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, సబ్‌స్క్రిప్షన్కు అనుగుణంగా టెంప్లేట్లు అందుబాటులో ఉన్నాయి.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నా కార్డ్ డిజైన్ కస్టమైజ్ చేయవచ్చా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, సబ్‌స్క్రిప్షన్ ఆధారంగా కస్టమైజేషన్ సాధ్యం.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>ఇమేజ్ గ్యాలరీ జోడించవచ్చా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, .PNG, .JPG, .JPEG ఫార్మాట్లలో ఇమేజ్‌లు జోడించవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నా కార్డ్ ఎలా షేర్ చేయాలి?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">కార్డ్ పై Share బటన్ నొక్కి SMS, WhatsApp, Telegram ద్వారా షేర్ చేయవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>యూజర్ డ్యాష్‌బోర్డ్ ఉందా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, సబ్‌స్క్రిప్షన్ ఆధారంగా పూర్తి డ్యాష్‌బోర్డ్ అందుబాటులో ఉంది.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>నా వివరాలు ఎప్పుడైనా అప్‌డేట్ చేయవచ్చా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">అవును, మీ DVC వివరాలు ఎప్పుడైనా వెంటనే సవరించవచ్చు.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>దాచిన చార్జీలు ఉన్నాయా?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">లేదు, ధర పూర్తిగా పారదర్శకంగా ఉంటుంది.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>డిజిటల్ విజిటింగ్ కార్డ్‌తో ఎలా ప్రారంభించాలి?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">సైన్అప్ ఫారమ్ పూరించండి, సేల్స్ టీమ్ మిమ్మల్ని సంప్రదిస్తుంది, ఆ తర్వాత చెల్లింపు చేసి మీ కార్డ్ యాక్టివేట్ చేసుకోండి.</div>
+          </details>
+        </div>
 
-          <!-- ══ COLUMN 4: Tamil ══ -->
-          <div class="border border-gray-200 rounded-xl overflow-hidden flex flex-col">
-            <div class="bg-primary text-white text-center py-3 font-bold text-lg tracking-wide">தமிழ்</div>
-            <div class="p-4 flex-1 space-y-2">
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">கார்டில் என்ன தொடர்பு விருப்பங்கள் கிடைக்கின்றன?</p>
-                <p class="text-xs text-gray-600 mt-1">அழைப்பு, SMS, WhatsApp, மின்னஞ்சல், முகவரி மற்றும் இருப்பிடம்.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">நேரடி WhatsApp ஒருங்கிணைப்பு உள்ளதா?</p>
-                <p class="text-xs text-gray-600 mt-1">ஆம், ஒரே tap-ல் பயனர்கள் உங்களை WhatsApp மூலம் தொடர்புகொள்ளலாம்.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">பல தொடர்பு எண்களை பயன்படுத்தலாமா?</p>
-                <p class="text-xs text-gray-600 mt-1">ஆம், ஒரு முதன்மை மற்றும் ஒரு மாற்று எண் பயன்படுத்தலாம்.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">இந்த கார்டு மூலம் என் தொழிலை மேம்படுத்தலாமா?</p>
-                <p class="text-xs text-gray-600 mt-1">ஆம், இது தொழில்களுக்கோ தனிநபர்களுக்கோ ஒரு சிறிய தொடர்பு பகிர்வு தளமாக செயல்படுகிறது.</p>
-              </div>
-              <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <p class="font-semibold text-sm text-gray-800">பரிந்துரை கமிஷன் எவ்வளவு?</p>
-                <p class="text-xs text-gray-600 mt-1">புதிய சந்தாவில் 20% வரை கமிஷன் பெறலாம்.</p>
-              </div>
-              <!-- Hidden items -->
-              <div class="faq-extras hidden space-y-2">
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">தயாரான வார்ப்புருக்கள் உள்ளனவா?</p>
-                  <p class="text-xs text-gray-600 mt-1">ஆம், வெவ்வேறு சந்தாவுக்கு வெவ்வேறு வார்ப்புருக்கள் உள்ளன.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">என் கார்டு வடிவமைப்பை தனிப்பயனாக்கலாமா?</p>
-                  <p class="text-xs text-gray-600 mt-1">ஆம், சந்தாவின் அடிப்படையில் தனிப்பயனாக்கம் சாத்தியம்.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">பட தொகுப்பு சேர்க்கலாமா?</p>
-                  <p class="text-xs text-gray-600 mt-1">ஆம், .PNG, .JPG, .JPEG வடிவங்களில் படங்கள் சேர்க்கலாம்.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">என் கார்டை எவ்வாறு பகிர்வது?</p>
-                  <p class="text-xs text-gray-600 mt-1">கார்டில் Share பொத்தானை அழுத்தி SMS, WhatsApp, Telegram மூலம் பகிரலாம்.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">பயனர் டாஷ்போர்டு உள்ளதா?</p>
-                  <p class="text-xs text-gray-600 mt-1">ஆம், சந்தா வகையின் அடிப்படையில் முழுமையான டாஷ்போர்டு உள்ளது.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">என் விவரங்களை எப்போது வேண்டுமானாலும் புதுப்பிக்கலாமா?</p>
-                  <p class="text-xs text-gray-600 mt-1">ஆம், உங்கள் DVC விவரங்களை எந்த நேரத்திலும் உடனடியாக திருத்தலாம்.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">மறைக்கப்பட்ட கட்டணங்கள் உள்ளனவா?</p>
-                  <p class="text-xs text-gray-600 mt-1">இல்லை, விலை நிர்ணயம் முற்றிலும் வெளிப்படையானது.</p>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <p class="font-semibold text-sm text-gray-800">டிஜிட்டல் விஸிட்டிங் கார்டை எவ்வாறு தொடங்குவது?</p>
-                  <p class="text-xs text-gray-600 mt-1">பதிவு படிவம் நிரப்பவும், எங்கள் குழு தொடர்புகொள்ளும், உள்நுழைந்து கட்டணம் செலுத்தி கார்டை இயக்கவும்.</p>
-                </div>
-              </div>
-            </div>
-            <button onclick="toggleFAQMore(this)" 
-              class="faq-readmore-btn w-full py-2 text-sm font-semibold text-primary border-t border-gray-200 hover:bg-gray-50 transition" 
-              data-lang="tamil">
-              ▼ மேலும் படிக்க
-            </button>
-          </div>
+        <!-- ══ TAB: English ══ -->
+        <div id="faq-english" class="tab-content hidden space-y-3 max-w-3xl mx-auto">
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Which contact options are available on the card?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Call, SMS, WhatsApp, Email, Address and Location.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Is direct WhatsApp integration available?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, users can instantly contact you via WhatsApp with a single tap.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Can I use multiple contact numbers?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, you can use a primary and a secondary (alternate) contact number.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Can I promote my business using this card?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, it acts like a mini contact sharing platform for businesses or individuals.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>What is the referral commission amount?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">You can earn up to 20% commission of the new subscription cost after the new user's successful registration.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Are there ready-made templates available?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, different templates are available for different subscriptions.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Can I customize my card design?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, card customization is possible based on your subscription.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Can I add an image gallery?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, you can add images. Supported formats: .PNG, .JPG, .JPEG.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>How can I share my card?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Tap the Share button on your card and choose from SMS, WhatsApp, Telegram, and more.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Is there a user dashboard?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, a complete user dashboard is available based on your subscription.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Can I update my details at any time?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Yes, you can edit and update your DVC details instantly at any time.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>Are there any hidden charges?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">No hidden charges — the pricing is transparent.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>How do I get started?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">Fill the signup form, our sales team will reply, then log in, pay for your plan, and your card is activated.</div>
+          </details>
+        </div>
 
-        </div><!-- end grid -->
+        <!-- ══ TAB: Hindi ══ -->
+        <div id="faq-hindi" class="tab-content hidden space-y-3 max-w-3xl mx-auto">
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>कार्ड पर कौन से संपर्क विकल्प उपलब्ध हैं?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">कॉल, SMS, WhatsApp, ईमेल, पता और लोकेशन।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या सीधा WhatsApp इंटीग्रेशन उपलब्ध है?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, उपयोगकर्ता एक tap से WhatsApp पर आपसे संपर्क कर सकते हैं।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या मैं कई कॉन्टैक्ट नंबर उपयोग कर सकता हूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, एक प्राथमिक और एक वैकल्पिक नंबर उपयोग किया जा सकता है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या मैं इस कार्ड से अपना व्यवसाय प्रमोट कर सकता हूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, यह व्यवसायों या व्यक्तियों के लिए एक मिनी कॉन्टैक्ट शेयरिंग प्लेटफॉर्म की तरह काम करता है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>रेफरल कमीशन राशि क्या है?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">नए सब्सक्रिप्शन की लागत का 20% तक कमीशन कमाया जा सकता है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या रेडीमेड टेम्पलेट उपलब्ध हैं?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, विभिन्न सब्सक्रिप्शन के लिए अलग-अलग टेम्पलेट उपलब्ध हैं।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या मैं कार्ड डिज़ाइन कस्टमाइज़ कर सकता हूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, सब्सक्रिप्शन के आधार पर कार्ड कस्टमाइज़ेशन संभव है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या मैं इमेज गैलरी जोड़ सकता हूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, .PNG, .JPG, .JPEG फॉर्मेट में इमेज जोड़े जा सकते हैं।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>मैं अपना कार्ड कैसे शेयर करूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">कार्ड पर Share बटन दबाएँ और SMS, WhatsApp, Telegram आदि विकल्प चुनें।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या यूज़र डैशबोर्ड उपलब्ध है?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, सब्सक्रिप्शन के आधार पर पूर्ण डैशबोर्ड उपलब्ध है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या मैं अपनी जानकारी कभी भी अपडेट कर सकता हूँ?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">हाँ, आप कभी भी तुरंत अपना DVC विवरण संपादित कर सकते हैं।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>क्या कोई छुपे हुए शुल्क हैं?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">नहीं, मूल्य निर्धारण पूरी तरह पारदर्शी है।</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>डिजिटल विज़िटिंग कार्ड से कैसे शुरू करें?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">साइनअप फॉर्म भरें, हमारी टीम संपर्क करेगी, फिर लॉगिन करें, भुगतान करें और कार्ड सक्रिय हो जाएगा।</div>
+          </details>
+        </div>
+
+        <!-- ══ TAB: Tamil ══ -->
+        <div id="faq-tamil" class="tab-content hidden space-y-3 max-w-3xl mx-auto">
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>கார்டில் என்ன தொடர்பு விருப்பங்கள் கிடைக்கின்றன?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">அழைப்பு, SMS, WhatsApp, மின்னஞ்சல், முகவரி மற்றும் இருப்பிடம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>நேரடி WhatsApp ஒருங்கிணைப்பு உள்ளதா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், ஒரே tap-ல் பயனர்கள் உங்களை WhatsApp மூலம் தொடர்புகொள்ளலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>பல தொடர்பு எண்களை பயன்படுத்தலாமா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், ஒரு முதன்மை மற்றும் ஒரு மாற்று எண் பயன்படுத்தலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>இந்த கார்டு மூலம் என் தொழிலை மேம்படுத்தலாமா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், இது தொழில்களுக்கோ தனிநபர்களுக்கோ ஒரு சிறிய தொடர்பு பகிர்வு தளமாக செயல்படுகிறது.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>பரிந்துரை கமிஷன் எவ்வளவு?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">புதிய சந்தாவில் 20% வரை கமிஷன் பெறலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>தயாரான வார்ப்புருக்கள் உள்ளனவா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், வெவ்வேறு சந்தாவுக்கு வெவ்வேறு வார்ப்புருக்கள் உள்ளன.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>என் கார்டு வடிவமைப்பை தனிப்பயனாக்கலாமா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், சந்தாவின் அடிப்படையில் தனிப்பயனாக்கம் சாத்தியம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>பட தொகுப்பு சேர்க்கலாமா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், .PNG, .JPG, .JPEG வடிவங்களில் படங்கள் சேர்க்கலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>என் கார்டை எவ்வாறு பகிர்வது?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">கார்டில் Share பொத்தானை அழுத்தி SMS, WhatsApp, Telegram மூலம் பகிரலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>பயனர் டாஷ்போர்டு உள்ளதா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், சந்தா வகையின் அடிப்படையில் முழுமையான டாஷ்போர்டு உள்ளது.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>என் விவரங்களை எப்போது வேண்டுமானாலும் புதுப்பிக்கலாமா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">ஆம், உங்கள் DVC விவரங்களை எந்த நேரத்திலும் உடனடியாக திருத்தலாம்.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>மறைக்கப்பட்ட கட்டணங்கள் உள்ளனவா?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">இல்லை, விலை நிர்ணயம் முற்றிலும் வெளிப்படையானது.</div>
+          </details>
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer list-none group-open:bg-primary group-open:text-white transition"><span>டிஜிட்டல் விஸிட்டிங் கார்டை எவ்வாறு தொடங்குவது?</span><svg class="h-5 w-5 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></summary>
+            <div class="p-4 text-gray-600">பதிவு படிவம் நிரப்பவும், எங்கள் குழு தொடர்புகொள்ளும், உள்நுழைந்து கட்டணம் செலுத்தி கார்டை இயக்கவும்.</div>
+          </details>
+        </div>
+
       </div>
     </section>
   </main>
